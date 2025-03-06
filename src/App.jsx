@@ -89,22 +89,33 @@ const App = () => {
         img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/e41f26.png',
       },
     ]
-  
-
   );
 
   const handleAddFighter = (fighter) => {
-    if (money >= fighter.price) {
-      setTeam([...team, fighter]); 
-      setMoney(money - fighter.price); 
-      setZombieFighters(zombieFighters.filter(fight => fight.id !== fighter.id))
-    } else {
-      alert("you can't afford to add this fighter");
-    }
+    console.log(fighter)
+    const newTeam = [...team, fighter]
+    setTeam(newteam) 
   };
   return (
     <>
-      <h1>Field Of Zombies!</h1>
+      <h1>Zombies</h1>
+      <h3>Current Funds: ${money} </h3>
+      <ul>
+        {zombieFighters.map((zFighter) => (
+          <li key={zFighter.id}>
+            Name: {zFighter.name}
+            Price: {zFighter.price}
+            Strength: {zFighter.strength}
+            Agility: {zFighter.agility}
+            <img src={zFighter.img} alt="Zombie Fighter Image" />
+            <button onClick={() => {handleAddFighter(zFighter) }}>Add</button>
+          </li>
+        ))}
+      </ul>
+
+
+
+      {/* 
       <ul>
         {zombieFighters.map((zombieFighter) =>
           <div key={zombieFighter.id}>
@@ -117,24 +128,30 @@ const App = () => {
         )}
       </ul>
 
-   <h2>Your Team:</h2>
+      <h2>Your Team:</h2>
       {team.length === 0 ? (
         <p>Pick some team members!</p>
       ) : (
         <ul>
-          {team.map((fighter, index) => (
-            <li key={index}>{fighter.name}</li>
+          {team.map((fighter) => (
+            <div key={fighter}>
+              <p>{fighter.name}</p>
+              <img src={fighter.img}></img>
+             <p>Price: ${fighter.price}</p>
+             <p>Strength: {fighter.strength}</p>
+             <p>Agility: {fighter.agility}</p>
+              </div>
           ))}
         </ul>
-      )}
+      )} */}
 
-      <p>Money: {money}</p>
+
     </>
   );
 };
 
-export default App
 
+export default App
 
 
 
