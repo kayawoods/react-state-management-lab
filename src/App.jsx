@@ -91,6 +91,9 @@ const App = () => {
 return total + currentMember.strength; 
   }, 0); 
 
+  let totalAgility = team.reduce((total, currentMember) => {
+    return total + currentMember.agility; 
+      }, 0); 
 
   const handleAddFighter = (fighter) => {
     if (money < fighter.price) {
@@ -113,12 +116,26 @@ return total + currentMember.strength;
     }
   };
 
+  const handleRemoveFighter = (fighter) => {
+    const updatedTeamFighters = team.filter(
+      (zFighter) => fighter.id !== zFighter.id
+    );
+    setTeam(updatedTeamFighters);
+
+    const newTotal = money + fighter.price;
+    setMoney(newTotal);
+
+    const updatedZombieFighters = [...zombieFighters, fighter];
+      setZombieFighters(updatedZombieFighters);
+
+  } 
   return (
     <>
       <h1>Zombies</h1>
       <h3>Current Funds: ${money}</h3>
       <h3>Your Team:</h3>
 <h3>Total Strength: { totalStrength}</h3>
+<h3>Total Agility: { totalAgility}</h3>
       <ul>
         {team.length ? (
           team.map((zFighter) => (
@@ -128,7 +145,7 @@ return total + currentMember.strength;
               Strength: {zFighter.strength}
               Agility: {zFighter.agility}
               <img src={zFighter.img} alt="Zombie Fighter Image" />
-              <button onClick={() => handleAddFighter(zFighter)}>Add</button>
+              <button onClick={() => handleRemoveFighter(zFighter)}>Remove</button>
             </li>
           ))
         ) : (
